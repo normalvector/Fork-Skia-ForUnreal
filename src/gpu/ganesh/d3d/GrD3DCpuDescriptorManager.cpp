@@ -16,9 +16,14 @@ GrD3DCpuDescriptorManager::GrD3DCpuDescriptorManager(GrD3DGpu* gpu)
     , fSamplerDescriptorPool(gpu, D3D12_DESCRIPTOR_HEAP_TYPE_SAMPLER) {}
 
 GrD3DDescriptorHeap::CPUHandle GrD3DCpuDescriptorManager::createRenderTargetView(
-        GrD3DGpu* gpu, ID3D12Resource* textureResource) {
+        GrD3DGpu* gpu, ID3D12Resource* textureResource, DXGI_FORMAT format) {
     const GrD3DDescriptorHeap::CPUHandle& descriptor = fRTVDescriptorPool.allocateHandle(gpu);
-    gpu->device()->CreateRenderTargetView(textureResource, nullptr, descriptor.fHandle);
+    D3D12_RENDER_TARGET_VIEW_DESC desc = {};
+    desc.Format = format;
+    desc.ViewDimension = textureResource->GetDesc().SampleDesc.Count > 1
+                                 ? D3D12_RTV_DIMENSION_TEXTURE2DMS
+                                 : D3D12_RTV_DIMENSION_TEXTURE2D;
+    gpu->device()->CreateRenderTargetView(textureResource, &desc, descriptor.fHandle);
     return descriptor;
 }
 

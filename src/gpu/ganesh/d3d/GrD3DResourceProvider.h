@@ -47,7 +47,8 @@ public:
     sk_sp<GrD3DCommandSignature> findOrCreateCommandSignature(GrD3DCommandSignature::ForIndexed,
                                                               unsigned int slot);
 
-    GrD3DDescriptorHeap::CPUHandle createRenderTargetView(ID3D12Resource* textureResource);
+    GrD3DDescriptorHeap::CPUHandle createRenderTargetView(ID3D12Resource* textureResource,
+                                                          DXGI_FORMAT format);
     void recycleRenderTargetView(const GrD3DDescriptorHeap::CPUHandle&);
 
     GrD3DDescriptorHeap::CPUHandle createDepthStencilView(ID3D12Resource* textureResource);

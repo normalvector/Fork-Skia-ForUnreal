@@ -18,7 +18,8 @@ public:
     GrD3DCpuDescriptorManager(GrD3DGpu*);
 
     GrD3DDescriptorHeap::CPUHandle createRenderTargetView(GrD3DGpu*,
-                                                          ID3D12Resource* textureResource);
+                                                          ID3D12Resource* textureResource,
+                                                          DXGI_FORMAT format);
     void recycleRenderTargetView(const GrD3DDescriptorHeap::CPUHandle&);
 
     GrD3DDescriptorHeap::CPUHandle createDepthStencilView(GrD3DGpu*,

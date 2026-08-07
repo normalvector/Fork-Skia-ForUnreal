@@ -40,7 +40,11 @@ GrD3DDescriptorHeap::GrD3DDescriptorHeap(const gr_cp<ID3D12DescriptorHeap>& heap
     , fHandleIncrementSize(handleIncrementSize)
     , fUniqueID(GrD3DDescriptorHeapGenID()) {
     fCPUHeapStart = fHeap->GetCPUDescriptorHandleForHeapStart();
-    fGPUHeapStart = fHeap->GetGPUDescriptorHandleForHeapStart();
+    if (fHeap->GetDesc().Flags & D3D12_DESCRIPTOR_HEAP_FLAG_SHADER_VISIBLE) {
+        fGPUHeapStart = fHeap->GetGPUDescriptorHandleForHeapStart();
+    } else {
+        fGPUHeapStart = {};
+    }
 }
 
 GrD3DDescriptorHeap::CPUHandle GrD3DDescriptorHeap::getCPUHandle(unsigned int index) {

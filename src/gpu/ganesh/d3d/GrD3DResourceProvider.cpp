@@ -81,8 +81,8 @@ sk_sp<GrD3DCommandSignature> GrD3DResourceProvider::findOrCreateCommandSignature
 }
 
 GrD3DDescriptorHeap::CPUHandle GrD3DResourceProvider::createRenderTargetView(
-        ID3D12Resource* textureResource) {
-    return fCpuDescriptorManager.createRenderTargetView(fGpu, textureResource);
+        ID3D12Resource* textureResource, DXGI_FORMAT format) {
+    return fCpuDescriptorManager.createRenderTargetView(fGpu, textureResource, format);
 }
 
 void GrD3DResourceProvider::recycleRenderTargetView(

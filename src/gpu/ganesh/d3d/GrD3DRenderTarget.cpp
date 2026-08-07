@@ -107,7 +107,7 @@ sk_sp<GrD3DRenderTarget> GrD3DRenderTarget::MakeWrappedRenderTarget(
     }
 
     GrD3DDescriptorHeap::CPUHandle renderTargetView =
-            gpu->resourceProvider().createRenderTargetView(info.fResource.get());
+            gpu->resourceProvider().createRenderTargetView(info.fResource.get(), info.fFormat);
 
     // create msaa surface if necessary
     GrD3DRenderTarget* d3dRT;
@@ -120,7 +120,8 @@ sk_sp<GrD3DRenderTarget> GrD3DRenderTarget::MakeWrappedRenderTarget(
                 GrD3DTextureResource::CreateMSAA(gpu, dimensions, sampleCnt, info, clearColor);
 
         GrD3DDescriptorHeap::CPUHandle msaaRenderTargetView =
-                gpu->resourceProvider().createRenderTargetView(msInfo.fResource.get());
+                gpu->resourceProvider().createRenderTargetView(msInfo.fResource.get(),
+                                                                msInfo.fFormat);
 
         d3dRT = new GrD3DRenderTarget(gpu, dimensions, info, std::move(state), msInfo,
                                       std::move(msState), msaaRenderTargetView, renderTargetView,

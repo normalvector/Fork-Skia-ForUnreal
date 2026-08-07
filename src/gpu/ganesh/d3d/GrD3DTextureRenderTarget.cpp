@@ -133,7 +133,7 @@ sk_sp<GrD3DTextureRenderTarget> GrD3DTextureRenderTarget::MakeNewTextureRenderTa
             gpu->resourceProvider().createShaderResourceView(info.fResource.get());
 
     const GrD3DDescriptorHeap::CPUHandle renderTargetView =
-            gpu->resourceProvider().createRenderTargetView(info.fResource.get());
+            gpu->resourceProvider().createRenderTargetView(info.fResource.get(), info.fFormat);
 
     if (sampleCnt > 1) {
         GrD3DTextureResourceInfo msInfo;
@@ -147,7 +147,8 @@ sk_sp<GrD3DTextureRenderTarget> GrD3DTextureRenderTarget::MakeNewTextureRenderTa
         }
 
         const GrD3DDescriptorHeap::CPUHandle msaaRenderTargetView =
-                gpu->resourceProvider().createRenderTargetView(msInfo.fResource.get());
+                gpu->resourceProvider().createRenderTargetView(msInfo.fResource.get(),
+                                                                msInfo.fFormat);
 
         GrD3DTextureRenderTarget* trt = new GrD3DTextureRenderTarget(gpu,
                                                                      budgeted,
@@ -195,7 +196,7 @@ sk_sp<GrD3DTextureRenderTarget> GrD3DTextureRenderTarget::MakeWrappedTextureRend
             gpu->resourceProvider().createShaderResourceView(info.fResource.get());
 
     const GrD3DDescriptorHeap::CPUHandle renderTargetView =
-            gpu->resourceProvider().createRenderTargetView(info.fResource.get());
+            gpu->resourceProvider().createRenderTargetView(info.fResource.get(), info.fFormat);
 
     if (sampleCnt > 1) {
         GrD3DTextureResourceInfo msInfo;
@@ -209,7 +210,8 @@ sk_sp<GrD3DTextureRenderTarget> GrD3DTextureRenderTarget::MakeWrappedTextureRend
         }
 
         const GrD3DDescriptorHeap::CPUHandle msaaRenderTargetView =
-                gpu->resourceProvider().createRenderTargetView(msInfo.fResource.get());
+                gpu->resourceProvider().createRenderTargetView(msInfo.fResource.get(),
+                                                                msInfo.fFormat);
 
         GrD3DTextureRenderTarget* trt = new GrD3DTextureRenderTarget(
                 gpu,
