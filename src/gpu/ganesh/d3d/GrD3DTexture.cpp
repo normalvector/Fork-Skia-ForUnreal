@@ -108,7 +108,8 @@ sk_sp<GrD3DTexture> GrD3DTexture::MakeWrappedTexture(GrD3DGpu* gpu,
                                                        : GrMipmapStatus::kNotAllocated;
 
     GrD3DDescriptorHeap::CPUHandle shaderResourceView =
-            gpu->resourceProvider().createShaderResourceView(info.fResource.get());
+            gpu->resourceProvider().createShaderResourceView(info.fResource.get(), 0, -1,
+                                                             info.fFormat);
 
     return sk_sp<GrD3DTexture>(new GrD3DTexture(gpu, dimensions, info, std::move(state),
                                                 shaderResourceView, mipmapStatus, cacheable,

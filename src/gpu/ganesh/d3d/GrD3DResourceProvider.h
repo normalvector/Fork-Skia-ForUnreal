@@ -59,7 +59,8 @@ public:
                                                             size_t size);
     GrD3DDescriptorHeap::CPUHandle createShaderResourceView(ID3D12Resource* resource,
                                                             unsigned int mostDetailedMip = 0,
-                                                            unsigned int mipLevels = -1);
+                                                            unsigned int mipLevels = -1,
+                                                            DXGI_FORMAT format = DXGI_FORMAT_UNKNOWN);
     GrD3DDescriptorHeap::CPUHandle createUnorderedAccessView(ID3D12Resource* resource,
                                                              unsigned int mipSlice);
     void recycleShaderView(const GrD3DDescriptorHeap::CPUHandle&);

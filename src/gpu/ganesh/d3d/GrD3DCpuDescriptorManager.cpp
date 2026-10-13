@@ -57,13 +57,13 @@ GrD3DDescriptorHeap::CPUHandle GrD3DCpuDescriptorManager::createConstantBufferVi
 
 GrD3DDescriptorHeap::CPUHandle GrD3DCpuDescriptorManager::createShaderResourceView(
         GrD3DGpu* gpu, ID3D12Resource* resource,
-        unsigned int mostDetailedMip, unsigned int mipLevels) {
+        unsigned int mostDetailedMip, unsigned int mipLevels, DXGI_FORMAT format) {
     const GrD3DDescriptorHeap::CPUHandle& descriptor =
             fShaderViewDescriptorPool.allocateHandle(gpu);
     // TODO: for 4:2:0 YUV formats we'll need to map two different views, one for Y and one for UV.
     // For now map the entire resource.
     D3D12_SHADER_RESOURCE_VIEW_DESC desc = {};
-    desc.Format = resource->GetDesc().Format;
+    desc.Format = format != DXGI_FORMAT_UNKNOWN ? format : resource->GetDesc().Format;
     desc.ViewDimension = D3D12_SRV_DIMENSION_TEXTURE2D;
     desc.Texture2D.MostDetailedMip = mostDetailedMip;
     desc.Texture2D.MipLevels = mipLevels;

@@ -106,8 +106,8 @@ GrD3DDescriptorHeap::CPUHandle GrD3DResourceProvider::createConstantBufferView(
 }
 
 GrD3DDescriptorHeap::CPUHandle GrD3DResourceProvider::createShaderResourceView(
-        ID3D12Resource* resource, unsigned int highestMip, unsigned int mipLevels) {
-    return fCpuDescriptorManager.createShaderResourceView(fGpu, resource, highestMip, mipLevels);
+        ID3D12Resource* resource, unsigned int highestMip, unsigned int mipLevels, DXGI_FORMAT format) {
+    return fCpuDescriptorManager.createShaderResourceView(fGpu, resource, highestMip, mipLevels, format);
 }
 
 GrD3DDescriptorHeap::CPUHandle GrD3DResourceProvider::createUnorderedAccessView(

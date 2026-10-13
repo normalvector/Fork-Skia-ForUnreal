@@ -33,7 +33,8 @@ public:
     GrD3DDescriptorHeap::CPUHandle createShaderResourceView(GrD3DGpu*,
                                                             ID3D12Resource* resource,
                                                             unsigned int mostDetailedMip,
-                                                            unsigned int mipLevels);
+                                                            unsigned int mipLevels,
+                                                            DXGI_FORMAT format = DXGI_FORMAT_UNKNOWN);
     GrD3DDescriptorHeap::CPUHandle createUnorderedAccessView(GrD3DGpu*,
                                                              ID3D12Resource* resource,
                                                              unsigned int mipSlice);
